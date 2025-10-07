@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Api.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Data
@@ -7,8 +8,9 @@ namespace Api.Data
     {
         public AppDbContext(DbContextOptions options)
             : base(options)
-        {
-            
+        {            
         }
+
+        public DbSet<AppUser> AppUsers { get; set; }
     }
 }
