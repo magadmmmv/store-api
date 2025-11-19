@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.Model
+namespace Api.ModelDto
 {
-    public class Product
+    public class ProductUpdateDto
     {
-        [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
