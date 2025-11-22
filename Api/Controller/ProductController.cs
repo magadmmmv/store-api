@@ -208,7 +208,7 @@ namespace Api.Controller
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<ActionResult<ResponseServer>> RemoveProductById (int id)
         {
             try

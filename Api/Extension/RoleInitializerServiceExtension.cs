@@ -14,7 +14,7 @@ namespace Api.Extension
                 .ServiceProvider
                 .GetRequiredService<RoleManager<IdentityRole>>();
 
-            foreach (var role in SharedData.AllRoles)
+            foreach (var role in SharedData.Roles.AllRoles)
             {
                 if (!await roleManager.RoleExistsAsync(role))
                 {

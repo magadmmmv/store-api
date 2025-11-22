@@ -75,9 +75,9 @@ namespace Api.Controller
             }
 
             var newRoleAppUser = registerRequestDto.Role.Equals(
-                SharedData.Admin, StringComparison.OrdinalIgnoreCase)
-                ? SharedData.Admin
-                : SharedData.Comsumer;
+                SharedData.Roles.Admin, StringComparison.OrdinalIgnoreCase)
+                ? SharedData.Roles.Admin
+                : SharedData.Roles.Comsumer;
 
             await userManager.AddToRoleAsync(newAppUser, newRoleAppUser);
             return Ok(new ResponseServer
