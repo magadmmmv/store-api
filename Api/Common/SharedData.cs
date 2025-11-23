@@ -5,11 +5,11 @@
         public static class Roles
         {
             public const string Admin = "admin";
-            public const string Comsumer = "comsumer";
+            public const string Consumer = "consumer";
 
             public static IReadOnlyList<string> AllRoles
             {
-                get => new List<string>() { Admin, Comsumer };
+                get => new List<string>() { Admin, Consumer };
             }
         }
     }
