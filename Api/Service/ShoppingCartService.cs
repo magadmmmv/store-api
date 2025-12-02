@@ -39,7 +39,7 @@ namespace Api.Service
         public async Task UpdateExistingCartAsync(
             ShoppingCart shoppingCart, int productId, int newQuantity)
         {
-            CartItem cartItemInCart = shoppingCart
+            CartItem? cartItemInCart = shoppingCart
                 .CartItems
                 .FirstOrDefault(e => e.ProductId == productId);
 
@@ -84,7 +84,7 @@ namespace Api.Service
                 return new ShoppingCart();
             }
 
-            ShoppingCart shoppingCart = await dbContext
+            ShoppingCart? shoppingCart = await dbContext
                 .ShoppingCarts
                 .Include(u => u.CartItems)
                 .ThenInclude(u => u.Product)

@@ -12,7 +12,6 @@ namespace Api.Controller
         public ProductController(AppDbContext dbContext) 
             : base(dbContext)
         {
-
         }
 
         [HttpGet]
