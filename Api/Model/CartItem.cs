@@ -10,7 +10,7 @@ namespace Api.Model
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public int ShoppingCartId { get; set; }
-        [ForeignKey("ProductId")]
+        [ForeignKey(nameof(ProductId))]
         public Product? Product { get; set; }
     }
 }

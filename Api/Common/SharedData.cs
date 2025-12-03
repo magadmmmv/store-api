@@ -12,5 +12,17 @@
                 get => new List<string>() { Admin, Consumer };
             }
         }
+
+        public static class OrderStatus
+        {
+            public const string Pending = "pending";
+            public const string ReadyToShip = "ready_to_ship";
+            public const string Completed = "completed";
+
+            public static IReadOnlyList<string> AllStatus
+            {
+                get => new List<string>() { Pending, ReadyToShip, Completed };
+            }
+        }
     }
 }
