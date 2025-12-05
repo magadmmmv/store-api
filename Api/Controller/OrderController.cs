@@ -1,5 +1,9 @@
 ﻿using Api.Data;
+using Api.Model;
+using Api.ModelDto;
 using Api.Service;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Api.Controller
 {
@@ -15,5 +19,39 @@ namespace Api.Controller
             this.ordersService = ordersService;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<ResponseServer>> CreateOrder(
+            [FromBody] OrderHeaderCreateDto orderHeaderCreateDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ResponseServer
+                {
+                    IsSuccess = false,
+                    StatusCode = HttpStatusCode.BadRequest,
+                    ErrorMessage = {"Неверное состояние модели заказа"}
+                });
+            }
+
+            try
+            {
+                var order = await ordersService.CreateOrderAsync(orderHeaderCreateDto);
+
+                return Ok(new ResponseServer
+                {
+                    StatusCode = HttpStatusCode.Created,
+                    Result = order
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseServer
+                {
+                    IsSuccess = false,
+                    StatusCode = HttpStatusCode.BadRequest,
+                    ErrorMessage = {"Невероятная ошибка", ex.Message}
+                });
+            }
+        }
     }
 }

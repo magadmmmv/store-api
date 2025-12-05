@@ -2,6 +2,7 @@
 using Api.Data;
 using Api.Model;
 using Api.ModelDto;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Service
 {
@@ -24,6 +25,7 @@ namespace Api.Service
                 CustomerEmail = orderHeaderCreateDto.CustomerEmail,
                 OrderTotalAmount = orderHeaderCreateDto.OrderTotalAmount,
                 TotalCount = orderHeaderCreateDto.TotalCount,
+                OrderDateTime = DateTime.UtcNow,
                 Status = string.IsNullOrEmpty(orderHeaderCreateDto.Status)
                     ? SharedData.OrderStatus.Pending
                     : orderHeaderCreateDto.Status
@@ -48,6 +50,15 @@ namespace Api.Service
 
             await dbContext.SaveChangesAsync();
             return order;
+        }
+
+        public async Task<OrderHeader?> GetOrderById(int id)
+        {
+            return await dbContext
+                .OrderHeaders
+                .Include(items => items.OrderDetailItems)
+                .ThenInclude(x => x.Product)
+                .FirstOrDefaultAsync(u => u.OrderHeaderId == id);
         }
     }
 }
