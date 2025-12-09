@@ -121,5 +121,43 @@ namespace Api.Controller
                 });
             }
         }
+
+        [HttpPut("{id}", Name = nameof(UpdateOrderHeader))]
+        public async Task<ActionResult<ResponseServer>> UpdateOrderHeader(
+            int id, 
+            [FromBody] OrderHeaderUpdateDto orderHeaderUpdateDto)
+        {
+            try
+            {
+                var success = await ordersService
+                    .UpdateOrderHeaderAsync(id, orderHeaderUpdateDto);
+
+                if (!success)
+                {
+                    return BadRequest(new ResponseServer
+                    {
+                        IsSuccess = false,
+                        StatusCode = HttpStatusCode.BadRequest,
+                        ErrorMessage = { "Обновление пошло не по плану" }
+                    });
+                }
+
+                return Ok(new ResponseServer
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Result = new { Success = true, Message = "Все обновлено" }
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError,
+                new ResponseServer
+                {
+                    IsSuccess = false,
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ErrorMessage = { "При обновлении возникла проблема", ex.Message }
+                });
+            }
+        }
     }
 }
